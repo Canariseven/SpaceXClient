@@ -9,9 +9,9 @@ import Combine
 import Foundation
 import SpaceXClient
 
-extension Client {
+public extension Client {
 
-    func getAllRockets() -> AnyPublisher<[RocketsDTO], Error> {
+    func getAllRockets() -> AnyPublisher<[RocketDTO], Error> {
         self.getObjects(forResource: RocketsApi.getAllRockets)
     }
 
