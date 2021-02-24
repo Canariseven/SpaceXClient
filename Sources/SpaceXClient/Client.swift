@@ -38,13 +38,13 @@ public enum ClientError: Error {
 }
 
 protocol ClientProtocol {
-    func connectedToNetwork() -> Future<Bool, Error>
     func getEmpty(forResource resource: Resource) -> AnyPublisher<(), Error>
     func getObject<T: Decodable>(forResource resource: Resource) -> AnyPublisher<T, Error>
     func getObjects<T: Decodable>(forResource resource: Resource) -> AnyPublisher<[T], Error>
 }
 
-public struct Client {
+/// An object that resolves calls to a specific resource
+public struct Client : ClientProtocol{
     
     var fetcher: HTTPFetcher
     
@@ -52,6 +52,9 @@ public struct Client {
         self.fetcher = fetcher
     }
     
+    /// Fetches  the contents, how a single object, of a URL based on specified resource object
+    /// - Parameter resource: The Resource implemented for a specific service.
+    /// - Returns: a publisher object. The T object is resolved by 'type inference'.
     public func getObject<T: Decodable>(forResource resource: Resource) -> AnyPublisher<T, Error> {
         getObject(forRequest: resource.request(additionalParameters: [:]))
     }
