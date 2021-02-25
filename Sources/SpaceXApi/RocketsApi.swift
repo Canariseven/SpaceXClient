@@ -29,7 +29,7 @@ public enum RocketsApi: Resource {
     public var typeBody: TypeBody? {
         switch self {
         case .getAllRockets:
-            return .JSON
+            return nil
         }
     }
 
